@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Cetmix Nordic Ltd
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="mis_cash_flow_forecast_line_view_list" model="ir.ui.view">
+        <field name="model">mis.cash_flow.forecast_line</field>
+        <field
+            name="inherit_id"
+            ref="mis_builder_cash_flow.mis_cash_flow_forecast_line_view_tree"
+        />
+        <field name="arch" type="xml">
+            <list position="inside">
+                <header>
+                    <button
+                        name="action_generate_auto_lines"
+                        type="object"
+                        string="Update Forecast"
+                        class="btn-primary"
+                        display="always"
+                        groups="account.group_account_manager"
+                    />
+                </header>
+            </list>
+            <field name="name" position="after">
+                <field name="source" readonly="1" optional="show" />
+                <field name="res_model" column_invisible="1" />
+                <field name="res_id" column_invisible="1" />
+                <button
+                    name="action_open_origin"
+                    type="object"
+                    icon="fa-external-link"
+                    title="Open origin"
+                    invisible="not res_id"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="mis_cash_flow_forecast_line_view_form" model="ir.ui.view">
+        <field name="model">mis.cash_flow.forecast_line</field>
+        <field
+            name="inherit_id"
+            ref="mis_builder_cash_flow.mis_cash_flow_forecast_line_view_form"
+        />
+        <field name="arch" type="xml">
+            <field name="balance" position="after">
+                <field name="source" readonly="1" />
+                <field name="res_model" invisible="1" />
+                <field name="res_id" invisible="1" />
+            </field>
+            <sheet position="before">
+                <header>
+                    <button
+                        name="action_open_origin"
+                        type="object"
+                        string="Open Origin"
+                        invisible="not res_id"
+                    />
+                </header>
+            </sheet>
+        </field>
+    </record>
+    <record id="mis_cash_flow_forecast_line_view_search" model="ir.ui.view">
+        <field name="model">mis.cash_flow.forecast_line</field>
+        <field
+            name="inherit_id"
+            ref="mis_builder_cash_flow.mis_cash_flow_forecast_line_view_search"
+        />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <filter
+                    string="Manual"
+                    name="manual"
+                    domain="[('source', '=', 'manual')]"
+                />
+                <filter
+                    string="Generated"
+                    name="generated"
+                    domain="[('source', '!=', 'manual')]"
+                />
+                <separator />
+            </field>
+            <filter name="group_by_account_id" position="before">
+                <filter
+                    string="Source"
+                    name="group_by_source"
+                    context="{'group_by': 'source'}"
+                />
+            </filter>
+        </field>
+    </record>
+</odoo>

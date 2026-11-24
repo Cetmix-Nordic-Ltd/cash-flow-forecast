@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Cetmix Nordic Ltd
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record
+        id="mis_cash_flow_recurring_rule_operating_costs_demo"
+        model="mis.cash_flow.recurring_rule"
+    >
+        <field name="name">Operating costs</field>
+        <field name="company_id" ref="base.main_company" />
+        <field
+            name="account_ids"
+            model="account.account"
+            eval="[Command.set(obj().search([('account_type', '=', 'expense'), ('company_ids', 'in', ref('base.main_company'))], limit=2).ids)]"
+        />
+        <field name="history_months">3</field>
+        <field name="day_of_month">20</field>
+        <field
+            name="forecast_account_id"
+            model="account.account"
+            search="[('account_type', '=', 'liability_payable'), ('company_ids', 'in', ref('base.main_company'))]"
+        />
+    </record>
+</odoo>
