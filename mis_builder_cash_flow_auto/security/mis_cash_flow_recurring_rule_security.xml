@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Cetmix Nordic Ltd
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="mis_cash_flow_recurring_rule_rule_company" model="ir.rule">
+        <field name="name">Cash flow recurring rule: multi-company</field>
+        <field name="model_id" ref="model_mis_cash_flow_recurring_rule" />
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+</odoo>
